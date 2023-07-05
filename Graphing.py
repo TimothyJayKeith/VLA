@@ -6,7 +6,7 @@ from bokeh.io import show
 from bokeh.models import Arrow, NormalHead
 
 # Initialize standard plane to be used as default argument
-standard_plane = Plane([[-10,10],[-10,10]])
+standard_plane = Plane()
 
 def Place_Vector2D(vector, plane=standard_plane, start=[0,0], alpha=1.0):
     start = np.array(start)
@@ -20,7 +20,7 @@ def Place_Vector2D(vector, plane=standard_plane, start=[0,0], alpha=1.0):
 def Place(object, plane=standard_plane, start=[0, 0], alpha=1.0, show_components=True):
     if type(object) == Vectors.Vector2D:
         Place_Vector2D(object, plane, start, alpha)
-        if show_components and len(object._components) > 1:
+        if show_components:
             for component in object._components:
                 start = Place_Vector2D(component, plane, start, alpha=.2*alpha)
 
@@ -31,5 +31,6 @@ if __name__ == "__main__":
     vector1 = Vectors.Vector2D([3,2], color="blue")
     vector2 = Vectors.Vector2D([-4,-5], color="red")
     vector3 = Vectors.Vector2D([-5, 7], color="green")
-    Place(vector1 + vector2 + vector3, start=[2,1])
+    Place(vector1, start=[2,1])
+    Place(vector1 + vector2 + vector3)
     Graph()
