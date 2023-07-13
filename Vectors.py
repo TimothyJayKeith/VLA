@@ -1,6 +1,6 @@
 #Imports
-import re
 import numpy as np
+import numbers
 
 class Vector2D:
     def __init__(self, coordinates, color="black", _components = []):
@@ -28,6 +28,20 @@ class Vector2D:
             return Vector2D(self.coordinates + other.coordinates, _components=_components)
         else:
             raise Exception("Vector2D must be added either to other Vector2D or ndarray of shape 2.")
+    
+    def __mul__(self, other):
+        if isinstance(other, numbers.Number):
+            return Vector2D(self.coordinates * other)
+        elif type(other) == Vector2D:
+            return np.linalg.dot(self, other)
+        else:
+            raise Exception("Vector2D can only be multiplied by scalar or other Vector2D")
+     
+    def norm(self):
+        return np.linalg.norm(self.coordinates)
+    
+    def unit_vector(self):
+        return self * (1/self.norm())
     
     def __getitem__(self, item):
         return self.coordinates[item]
