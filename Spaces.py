@@ -12,6 +12,9 @@ class Plane:
         self.f.y_range = Range1d(limits[1][0], limits[1][1])
         self.f.axis.fixed_location = 0
 
+        self.domain = [limits[0][0], limits[0][1]]
+        self.range = [limits[1][0], limits[1][1]]
+
 class Line:
     def __init__(self, limits=[-10,10]) -> None:
         self.f = figure()
